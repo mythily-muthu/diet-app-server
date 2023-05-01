@@ -1,7 +1,7 @@
 require("dotenv").config();
 const cors = require("cors");
 const express = require("express");
-
+const db = require("./Shared/Mongo");
 
 //routes
 
@@ -11,6 +11,7 @@ const app = express();
 
 let startServer = async () => {
     try {
+        await db.connect();
         //for checking to browser;
         app.get("/", (req, res, next) => {
             res.status(200).send("server is running successfully");
