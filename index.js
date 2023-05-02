@@ -4,7 +4,9 @@ const express = require("express");
 const db = require("./Shared/Mongo");
 
 //routes
-
+const userRoute = require("./Routes/UsersRoute");
+const auth = require("./Routes/AuthRoute");
+const userInfoRoute = require("./Routes/UserInfoRoute");
 
 const app = express();
 
@@ -21,7 +23,11 @@ let startServer = async () => {
         app.use(cors());
         app.use(express.json());
         //middlewares
+        app.use("/users", userRoute);
 
+        app.use(auth.authtoken);
+
+        app.use("/userinfo", userInfoRoute);
 
         const port = process.env.PORT || 3001;
         app.listen(port, () => {
